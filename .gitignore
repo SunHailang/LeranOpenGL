@@ -1,3 +1,6 @@
+/LeranOpenGL/*.db
+
 /LeranOpenGL/Debug/
 /LeranOpenGL/OpenGL/Debug/
+/LeranOpenGL/OpenGL/x64/
 /LeranOpenGL/.vs/
