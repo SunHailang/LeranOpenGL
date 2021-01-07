@@ -3,6 +3,14 @@
 
 #include <iostream>
 
+#include "Renderer.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "VertexArray.h"
+#include "VertexBufferLayout.h"
+#include "ShaderProgram.h"
+#include "Texture.h"
+
 int main(void)
 {
 	GLFWwindow* window;
@@ -24,6 +32,8 @@ int main(void)
 
 	glfwMakeContextCurrent(window);
 
+	glfwSwapInterval(1);
+
 	if (glewInit() != GLEW_OK)
 	{
 		std::cout << "glew init failed." << std::endl;
@@ -31,56 +41,71 @@ int main(void)
 		return -1;
 	}
 	std::cout << "[OpenGL Version]: " << glfwGetVersionString() << std::endl;
-
-	// 绘制三角形
-	float positions[] = {
-		0.5f, 0.5f,
-		0.5f, -0.5f,
-		-0.5f, 0.5f,
-		-0.5f, -0.5f
-	};
-
-	unsigned int indexs[] = {
-		0, 1, 2,
-		1, 2, 3
-	};
-
-	unsigned int vao;
-	unsigned int vbo;
-	unsigned int veo;
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-
-	glGenBuffers(1, &veo);
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, veo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexs), indexs, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, (const void*)0);
-	glEnableVertexAttribArray(0);
-
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	while (!glfwWindowShouldClose(window))
 	{
-		glClearColor(1.0f, 0.2f, 0.8f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		// 绘制三角形
+		float positions[] = {
+			-0.5f, -0.5f, 0.0f, 0.0f,	// 0
+			 0.5f, -0.5f, 1.0f, 0.0f,	// 1
+			 0.5f,  0.5f, 1.0f, 1.0f,	// 2
+			-0.5f,  0.5f, 0.0f, 1.0f	// 3
+		};
 
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
-		glBindVertexArray(vao);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
-		glfwSwapBuffers(window);
-		glfwPollEvents();
+		unsigned int indexs[] = {
+			0, 1, 2,
+			2, 3, 0
+		};
+
+		GLCall(glEnable(GL_BLEND));
+		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+
+		VertexArray va;
+		VertexBuffer vb(positions, 4 * 4 * sizeof(float));
+
+		VertexBufferLayout layout;
+		layout.Push<float>(2);
+		layout.Push<float>(2);
+		va.AddBuffer(vb, layout);
+
+		IndexBuffer ib(indexs, 6);
+
+		ShaderProgram program("res/shaders/Basic.shader");
+		program.Bind();
+		program.SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
+
+		Texture texture("res/textures/log.png");
+		texture.Bind();
+		program.SetUniform1i("u_Texture", 0);
+
+		va.Unbind();
+		vb.Unbind();
+		ib.Unbind();
+		program.Unbind();
+
+		Renderer renderer;
+		float r = 0.8f;
+		float increnment = 0.05f;
+
+		while (!glfwWindowShouldClose(window))
+		{
+			/* renderer here */
+			renderer.Clear();
+
+			program.Bind();
+			//program.SetUniform4f("u_Color", r, 0.3f, 0.8f, 1.0f);
+
+			renderer.Draw(va, ib, program);
+
+			/*if (r > 1.0f)
+				increnment = -0.05f;
+			else if (r < 0.0f)
+				increnment = 0.05f;
+			r += increnment;*/
+
+
+			glfwSwapBuffers(window);
+			glfwPollEvents();
+		}
 	}
-	glDeleteVertexArrays(1, &vao);
-	glDeleteBuffers(1, &vbo);
-	glDeleteBuffers(1, &veo);
-
 	glfwTerminate();
 	return 0;
 }
