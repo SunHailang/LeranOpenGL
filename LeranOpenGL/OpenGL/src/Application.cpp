@@ -11,6 +11,9 @@
 #include "ShaderProgram.h"
 #include "Texture.h"
 
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
+
 int main(void)
 {
 	GLFWwindow* window;
@@ -23,7 +26,7 @@ int main(void)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 
-	window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+	window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Hello World", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -42,12 +45,27 @@ int main(void)
 	}
 	std::cout << "[OpenGL Version]: " << glfwGetVersionString() << std::endl;
 	{
+		struct Vec3
+		{
+			float x;
+			float y;
+			float z;
+		};
+		float m_width = 192.0f;
+		float m_height = 192.0f;
+
+		Vec3 v1 = { -0.5f, 0.5f,0.0f }; // 左上角
+		Vec3 v2 = { -0.5f + m_width / SCREEN_WIDTH, 0.0f, 0.0f }; // 右上角
+		Vec3 v3 = { 0.0f, 0.5f + m_height / SCREEN_HEIGHT, 0.0f }; // 左下角
+		Vec3 v4 = { -0.5f + m_width / SCREEN_WIDTH,0.5f + m_height / SCREEN_HEIGHT, 0.0f }; // 右下角
+
+
 		// 绘制三角形
 		float positions[] = {
-			-0.5f, -0.5f, 0.0f, 0.0f,	// 0 左下角
-			 0.5f, -0.5f, 1.0f, 0.0f,	// 1 右下角
-			 0.5f,  0.5f, 1.0f, 1.0f,	// 2 右上角
-			-0.5f,  0.5f, 0.0f, 1.0f	// 3 左上角
+			v3.x, v3.y, v3.z, 0.0f, 0.0f,	// 0 左下角
+			v4.x, v4.y, v4.z, 1.0f, 0.0f,	// 1 右下角
+			v2.x, v2.y, v2.z, 1.0f, 1.0f,	// 2 右上角
+			v1.x, v1.y, v1.z, 0.0f, 1.0f	// 3 左上角
 		};
 
 		unsigned int indexs[] = {
@@ -59,10 +77,10 @@ int main(void)
 		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
 		VertexArray va;
-		VertexBuffer vb(positions, 4 * 4 * sizeof(float));
+		VertexBuffer vb(positions, sizeof(positions));
 
 		VertexBufferLayout layout;
-		layout.Push<float>(2);
+		layout.Push<float>(3);
 		layout.Push<float>(2);
 		va.AddBuffer(vb, layout);
 
@@ -82,8 +100,6 @@ int main(void)
 		program.Unbind();
 
 		Renderer renderer;
-		float r = 0.8f;
-		float increnment = 0.05f;
 
 		while (!glfwWindowShouldClose(window))
 		{
@@ -91,15 +107,8 @@ int main(void)
 			renderer.Clear();
 
 			program.Bind();
-			//program.SetUniform4f("u_Color", r, 0.3f, 0.8f, 1.0f);
 
 			renderer.Draw(va, ib, program);
-
-			/*if (r > 1.0f)
-				increnment = -0.05f;
-			else if (r < 0.0f)
-				increnment = 0.05f;
-			r += increnment;*/
 
 
 			glfwSwapBuffers(window);
