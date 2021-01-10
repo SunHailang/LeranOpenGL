@@ -34,7 +34,7 @@ public:
 	void SetUniform1f(const std::string& name, float value);
 	void SetUniform4f(const std::string& name, float v0, float v1, float v3, float v4);
 
-	void SetUniformMatrix4fv(const std::string& name, glm::mat4 vec4);
+	void SetUniformMat4f(const std::string& name, glm::mat4 matrix);
 
 	inline unsigned int GetRendererID() const { return m_RendererID; }
 
