@@ -11,8 +11,12 @@
 #include "ShaderProgram.h"
 #include "Texture.h"
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#include "glm/glm.hpp"
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
 
 int main(void)
 {
@@ -55,9 +59,9 @@ int main(void)
 		float m_height = 192.0f;
 
 		Vec3 v1 = { -0.5f, 0.5f,0.0f }; // 左上角
-		Vec3 v2 = { -0.5f + m_width / SCREEN_WIDTH, 0.0f, 0.0f }; // 右上角
-		Vec3 v3 = { 0.0f, 0.5f + m_height / SCREEN_HEIGHT, 0.0f }; // 左下角
-		Vec3 v4 = { -0.5f + m_width / SCREEN_WIDTH,0.5f + m_height / SCREEN_HEIGHT, 0.0f }; // 右下角
+		Vec3 v2 = { 0.5f, 0.5f, 0.0f }; // 右上角
+		Vec3 v3 = { -0.5f, -0.5f, 0.0f }; // 左下角
+		Vec3 v4 = { 0.5f, -0.5f, 0.0f }; // 右下角
 
 
 		// 绘制三角形
@@ -106,10 +110,14 @@ int main(void)
 			/* renderer here */
 			renderer.Clear();
 
-			program.Bind();
-
 			renderer.Draw(va, ib, program);
 
+			// create transformations
+			glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+			transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 0.0f));
+			transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+
+			program.SetUniformMatrix4fv("transform", transform);
 
 			glfwSwapBuffers(window);
 			glfwPollEvents();

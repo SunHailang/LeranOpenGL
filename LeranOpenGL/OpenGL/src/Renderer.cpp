@@ -2,6 +2,13 @@
 
 #include <iostream>
 
+//#include "GL/glew.h"
+#include "GLFW/glfw3.h"
+
+#include "glm/glm.hpp"
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 void GLClearError()
 {
 	while (glGetError() != GL_NO_ERROR);
@@ -19,7 +26,7 @@ bool GLLogCall(const char* function, const char* file, int line)
 
 void Renderer::Clear()
 {
-	//GLCall(glClearColor(1.0f, 1.0f, 1.0f, 1.0f));
+	GLCall(glClearColor(0.2f, 0.3f, 0.3f, 1.0f));
 	GLCall(glClear(GL_COLOR_BUFFER_BIT));
 }
 
