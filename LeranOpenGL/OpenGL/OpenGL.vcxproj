@@ -142,6 +142,7 @@
     <ClCompile Include="src\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\IndexBuffer.h" />
     <ClInclude Include="include\Renderer.h" />
     <ClInclude Include="include\ShaderProgram.h" />
