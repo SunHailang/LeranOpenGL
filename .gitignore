@@ -1,4 +1,6 @@
 /LeranOpenGL/*.db
+/LeranOpenGL/OpenGL/imgui.ini
+
 
 /LeranOpenGL/Debug/
 /LeranOpenGL/OpenGL/Debug/

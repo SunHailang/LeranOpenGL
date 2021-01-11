@@ -161,6 +161,7 @@
     <ClInclude Include="src\vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="imgui.ini" />
     <None Include="res\shaders\Basic.shader" />
   </ItemGroup>
   <ItemGroup>
