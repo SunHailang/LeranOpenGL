@@ -20,6 +20,7 @@
 #include "imgui/imgui_impl_opengl3.h"
 
 #include "Camera.h"
+#include "Time.h"
 
 #define SCREEN_WIDTH 960
 #define SCREEN_HEIGHT 540
@@ -71,7 +72,7 @@ int main(void)
 	glfwSetScrollCallback(window, scroll_callback);
 
 	// tell GLFW to capture our mouse
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (glewInit() != GLEW_OK)
 	{
@@ -179,10 +180,21 @@ int main(void)
 
 		IndexBuffer ib(indices, 0);
 
+
+		VertexArray lightVAO;
+		VertexBufferLayout lightLayout;
+		lightLayout.Push<float>(3);
+		lightLayout.Push<float>(2);
+		lightVAO.AddBuffer(vb, lightLayout);
+		lightVAO.Unbind();
+
+		ShaderProgram lithtProgram("res/shaders/Light.shader");
+		lithtProgram.Unbind();
+
 		//glm::mat4 projection = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
 		//glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)960 / (float)450, 0.1f, 100.0f);
 		//glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-		
+
 
 		ShaderProgram program("res/shaders/Basic.shader");
 		program.Bind();
@@ -192,7 +204,7 @@ int main(void)
 		texture.Bind();
 		program.SetUniform1i("u_Texture", 0);
 
-		
+
 
 		va.Unbind();
 		vb.Unbind();
@@ -207,17 +219,13 @@ int main(void)
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
 		// Setup Dear ImGui style
-		ImGui::StyleColorsDark();
-		//ImGui::StyleColorsClassic();
+		//ImGui::StyleColorsDark();
+		ImGui::StyleColorsClassic();
 
 		// Setup Platform/Renderer bindings
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init(glsl_version);
 
-		// Our state
-		bool show_demo_window = true;
-		bool show_another_window = false;
-		ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 		glm::vec3 translation(0.0f, 0.0f, -3.0f);
 
@@ -230,6 +238,7 @@ int main(void)
 			deltaTime = currentFrame - lastFrame;
 			lastFrame = currentFrame;
 
+
 			processInput(window);
 
 
@@ -239,13 +248,16 @@ int main(void)
 			ImGui::NewFrame();
 
 			program.Bind();
-			
+
 			//renderer.Draw(va, ib, program);
 
 			// create transformations
 			glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 			glm::mat4 view = glm::mat4(1.0f);
 			glm::mat4 projection = glm::mat4(1.0f);
+			glm::vec3 cubePos(2.2f, 1.0f, -3.0f);
+			model = glm::translate(glm::mat4(1.0f), cubePos);
+			model = glm::scale(model, glm::vec3(0.2f));
 			model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 			//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 			//view = glm::translate(view, translation);
@@ -259,25 +271,39 @@ int main(void)
 			//view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
 
 			//view = glm::translate(glm::mat4(1.0f), translation);
-			//glm::mat4 mvp = projection * view * model;
-			//program.SetUniformMat4f("u_MVP", mvp);
+			glm::mat4 mvp = projection * view * model;
+			program.SetUniformMat4f("u_MVP", mvp);
 
 			va.Bind();
-			for (unsigned int i = 0; i < 10; i++)
-			{
-				// calculate the model matrix for each object and pass it to shader before drawing
-				glm::mat4 model = glm::mat4(1.0f);
-				model = glm::translate(model, cubePositions[i]);
-				float angle = 20.0f * i;
-				model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-				//ourShader.setMat4("model", model);
+			//for (unsigned int i = 0; i < 10; i++)
+			//{
+			//	// calculate the model matrix for each object and pass it to shader before drawing
+			//	glm::mat4 model = glm::mat4(1.0f);
+			//	model = glm::translate(model, cubePositions[i]);
+			//	float angle = 20.0f * i;
+			//	model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+			//	//ourShader.setMat4("model", model);
 
-				glm::mat4 mvp = projection * view * model;
-				program.SetUniformMat4f("u_MVP", mvp);
+			//	glm::mat4 mvp = projection * view * model;
+			//	program.SetUniformMat4f("u_MVP", mvp);
 
-				glDrawArrays(GL_TRIANGLES, 0, 36);
-			}
-			//glDrawArrays(GL_TRIANGLES, 0, 36);
+			//	glDrawArrays(GL_TRIANGLES, 0, 36);
+			//}
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
+			
+			lithtProgram.Bind();
+			lithtProgram.SetUniform3f("m_ObjectColor", 1.0f, 0.5f, 0.31f);
+			lithtProgram.SetUniform3f("m_LightColor", 1.0f, 1.0f, 1.0f);
+			glm::vec3 lightPos(-1.0f, 0.0f, -1.0f);
+			//glm::mat4 lightprojection = glm::perspective(glm::radians(camera.Zoom), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
+			glm::mat4 lightmodel = glm::translate(glm::mat4(1.0f), lightPos);
+			lightmodel = glm::scale(lightmodel, glm::vec3(1.0f));
+			glm::mat4 lightMVP = projection * view * lightmodel;
+			lithtProgram.SetUniformMat4f("u_MVP", lightMVP);
+			lightVAO.Bind();
+			glDrawArrays(GL_TRIANGLES, 0, 36);
 
 			// 2. Show a simple window that we create ourselves. 
 			// We use a Begin/End pair to created a named window.
