@@ -1,6 +1,6 @@
 #shader vertex
 #version 330 core
-layout (location = 0) in vec4 aPos;
+layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec2 aTexCoord;
 
 //out vec3 ourColor;
@@ -10,7 +10,7 @@ uniform mat4 u_MVP;
 
 void main()
 {
-    gl_Position = u_MVP * aPos;
+    gl_Position = u_MVP * vec4(aPos, 1.0);
     TexCoord = vec2(aTexCoord.x, aTexCoord.y);
 }
 
@@ -26,6 +26,6 @@ uniform sampler2D u_Texture;
 
 void main()
 {
-    FragColor = texture(u_Texture, TexCoord);
-	FragColor =  vec4(0.3, 0.2, 0.2, 1.0);
+    //FragColor = texture(u_Texture, TexCoord);
+	FragColor =  vec4(1.0, 1.0, 0.2, 1.0);
 }

@@ -105,51 +105,93 @@ int main(void)
 		//	0, 1, 3, // first triangle
 		//	1, 2, 3  // second triangle
 		//};
-
-
 		float positions[] = {
-			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-			0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-			0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+			0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+			0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+			0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+			-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-			0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-			0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-			0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-			-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+			0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+			0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+			0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+			-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
 
-			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-			-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-			-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+			-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+			-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+			-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+			-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+			-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+			-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
 
-			0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-			0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-			0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+			0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+			0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+			0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+			0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+			0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+			0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
 
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-			0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-			0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-			0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+			0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+			0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+			0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
 
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-			0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-			0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-			-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+			-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+			0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+			0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+			0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+			-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+			-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
 		};
+
+		//float positions[] = {
+		//	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+		//	0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+		//	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		//	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		//	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+		//	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+		//	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		//	0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		//	0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+		//	0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+		//	-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+		//	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+		//	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		//	-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		//	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		//	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		//	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		//	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+		//	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		//	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		//	0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		//	0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		//	0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		//	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+		//	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		//	0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+		//	0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		//	0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		//	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		//	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+		//	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+		//	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		//	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		//	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		//	-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+		//	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+		//};
 		// world space positions of our cubes
 		glm::vec3 cubePositions[] = {
 			glm::vec3(0.0f,  0.0f,  0.0f),
@@ -175,7 +217,7 @@ int main(void)
 
 		VertexBufferLayout layout;
 		layout.Push<float>(3);
-		layout.Push<float>(2);
+		layout.Push<float>(3);
 		va.AddBuffer(vb, layout);
 
 		IndexBuffer ib(indices, 0);
@@ -184,7 +226,7 @@ int main(void)
 		VertexArray lightVAO;
 		VertexBufferLayout lightLayout;
 		lightLayout.Push<float>(3);
-		lightLayout.Push<float>(2);
+		lightLayout.Push<float>(3);
 		lightVAO.AddBuffer(vb, lightLayout);
 		lightVAO.Unbind();
 
@@ -255,9 +297,9 @@ int main(void)
 			glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 			glm::mat4 view = glm::mat4(1.0f);
 			glm::mat4 projection = glm::mat4(1.0f);
-			glm::vec3 cubePos(2.2f, 1.0f, -3.0f);
-			model = glm::translate(glm::mat4(1.0f), cubePos);
-			model = glm::scale(model, glm::vec3(0.2f));
+			glm::vec3 cubePos(1.2f, 0.5f, -1.0f);
+			model = glm::translate(model, cubePos);
+			model = glm::scale(model, glm::vec3(0.3f));
 			model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 			//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 			//view = glm::translate(view, translation);
@@ -292,16 +334,26 @@ int main(void)
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 
 
-			
+
 			lithtProgram.Bind();
-			lithtProgram.SetUniform3f("m_ObjectColor", 1.0f, 0.5f, 0.31f);
-			lithtProgram.SetUniform3f("m_LightColor", 1.0f, 1.0f, 1.0f);
-			glm::vec3 lightPos(-1.0f, 0.0f, -1.0f);
+			lithtProgram.SetUniform3f("objectColor", 1.0f, 0.5f, 0.31f);
+			lithtProgram.SetUniform3f("lightColor", 1.0f, 1.0f, 1.0f);
+			glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+			glm::mat4 lightmodel = glm::mat4(1.0f);
 			//glm::mat4 lightprojection = glm::perspective(glm::radians(camera.Zoom), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
-			glm::mat4 lightmodel = glm::translate(glm::mat4(1.0f), lightPos);
-			lightmodel = glm::scale(lightmodel, glm::vec3(1.0f));
-			glm::mat4 lightMVP = projection * view * lightmodel;
-			lithtProgram.SetUniformMat4f("u_MVP", lightMVP);
+			//lightmodel = glm::translate(glm::mat4(1.0f), lightPos);
+			//lightmodel = glm::scale(lightmodel, glm::vec3(1.0f));
+			//lightmodel = glm::rotate(lightmodel, glm::radians(-30.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			//glm::mat4 lightMVP = projection * view * lightmodel;
+
+
+			program.SetUniformMat4f("projection", projection);
+			program.SetUniformMat4f("view", view);
+			program.SetUniformMat4f("model", lightmodel);
+
+			lithtProgram.SetUniform3f("lightPos", lightPos.x, lightPos.y, lightPos.z);
+			lithtProgram.SetUniform3f("viewPos", camera.Position.x, camera.Position.y, camera.Position.z);
+
 			lightVAO.Bind();
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 
