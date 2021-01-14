@@ -269,7 +269,7 @@ int main(void)
 		ImGui_ImplOpenGL3_Init(glsl_version);
 
 
-		glm::vec3 translation(0.0f, 0.0f, -3.0f);
+		glm::vec3 translation(0.0f, -0.5f, -4.0f);
 
 		while (!glfwWindowShouldClose(window))
 		{
@@ -297,10 +297,10 @@ int main(void)
 			glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 			glm::mat4 view = glm::mat4(1.0f);
 			glm::mat4 projection = glm::mat4(1.0f);
-			glm::vec3 cubePos(1.2f, 0.5f, -1.0f);
-			model = glm::translate(model, cubePos);
+			glm::vec3 lightPos(translation.x, translation.y, translation.z);
+			model = glm::translate(model, lightPos);
 			model = glm::scale(model, glm::vec3(0.3f));
-			model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 			//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 			//view = glm::translate(view, translation);
 			projection = glm::perspective(glm::radians(camera.Zoom), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
@@ -338,21 +338,42 @@ int main(void)
 			lithtProgram.Bind();
 			lithtProgram.SetUniform3f("objectColor", 1.0f, 0.5f, 0.31f);
 			lithtProgram.SetUniform3f("lightColor", 1.0f, 1.0f, 1.0f);
-			glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+			glm::vec3 cubePos(0.2f, -2.5f, -3.0f);
 			glm::mat4 lightmodel = glm::mat4(1.0f);
 			//glm::mat4 lightprojection = glm::perspective(glm::radians(camera.Zoom), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
-			//lightmodel = glm::translate(glm::mat4(1.0f), lightPos);
-			//lightmodel = glm::scale(lightmodel, glm::vec3(1.0f));
+			lightmodel = glm::translate(lightmodel, cubePos);
+			lightmodel = glm::scale(lightmodel, glm::vec3(3.0f));
 			//lightmodel = glm::rotate(lightmodel, glm::radians(-30.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 			//glm::mat4 lightMVP = projection * view * lightmodel;
 
 
-			program.SetUniformMat4f("projection", projection);
-			program.SetUniformMat4f("view", view);
-			program.SetUniformMat4f("model", lightmodel);
+			lithtProgram.SetUniformMat4f("projection", projection);
+			lithtProgram.SetUniformMat4f("view", view);
+			lithtProgram.SetUniformMat4f("model", lightmodel);
 
-			lithtProgram.SetUniform3f("lightPos", lightPos.x, lightPos.y, lightPos.z);
-			lithtProgram.SetUniform3f("viewPos", camera.Position.x, camera.Position.y, camera.Position.z);
+			glm::mat4 lightMVP = projection * view * lightmodel;
+
+			//lithtProgram.SetUniformMat4f("u_MVP", lightMVP);
+
+			lithtProgram.SetUniform3f("lightPos", lightPos);
+			lithtProgram.SetUniform3f("viewPos", camera.Position);
+
+			lithtProgram.SetUniform3f("material.ambient", 1.0f, 0.5f, 0.31f);
+			lithtProgram.SetUniform3f("material.diffuse", 1.0f, 0.5f, 0.31f);
+			lithtProgram.SetUniform3f("material.specular", 0.5f, 0.5f, 0.5f);
+			lithtProgram.SetUniform1f("material.shininess", 32.0f);
+
+			glm::vec3 lightColor;
+			lightColor.x = sin(glfwGetTime() * 2.0f);
+			lightColor.y = sin(glfwGetTime() * 0.7f);
+			lightColor.z = sin(glfwGetTime() * 1.3f);
+
+			glm::vec3 diffuseColor = lightColor   * glm::vec3(0.5f); // 降低影响
+			glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // 很低的影响
+
+			lithtProgram.SetUniform3f("light.ambient", ambientColor);
+			lithtProgram.SetUniform3f("light.diffuse", diffuseColor); // 将光照调暗了一些以搭配场景
+			lithtProgram.SetUniform3f("light.specular", 1.0f, 1.0f, 1.0f);
 
 			lightVAO.Bind();
 			glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -362,7 +383,7 @@ int main(void)
 			{
 				ImGui::Begin("Application");
 
-				ImGui::SliderFloat2("TranslationX", &translation.x, -5.0f, 5.0f);
+				ImGui::SliderFloat3("TranslationX", &translation.x, -5.0f, 5.0f);
 
 				ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 				ImGui::End();
