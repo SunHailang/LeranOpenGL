@@ -164,6 +164,8 @@
     <None Include="res\shaders\Light.shader" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\textures\container2.png" />
+    <Image Include="res\textures\container2_specular.png" />
     <Image Include="res\textures\log.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

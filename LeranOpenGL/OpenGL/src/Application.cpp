@@ -106,47 +106,48 @@ int main(void)
 		//	1, 2, 3  // second triangle
 		//};
 		float positions[] = {
-			-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-			0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-			0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-			0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-			-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+			// positions          // normals           // texture coords
+			-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
+			0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  0.0f,
+			0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
+			0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
+			-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  1.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
 
-			-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-			0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-			0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-			0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-			-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-			-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
+			0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  0.0f,
+			0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
+			0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
+			-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  1.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
 
-			-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-			-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-			-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-			-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-			-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-			-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+			-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
+			-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
+			-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
+			-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
+			-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
+			-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
 
-			0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-			0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-			0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-			0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-			0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-			0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+			0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
+			0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
+			0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
+			0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
+			0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
+			0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
 
-			-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-			0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-			0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-			0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-			-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
+			0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  1.0f,
+			0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
+			0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  0.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
 
-			-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-			0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-			0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-			0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-			-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-			-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+			-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f,
+			0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  1.0f,
+			0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
+			0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
+			-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
+			-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
 		};
 
 		//float positions[] = {
@@ -218,20 +219,21 @@ int main(void)
 		VertexBufferLayout layout;
 		layout.Push<float>(3);
 		layout.Push<float>(3);
+		layout.Push<float>(2);
 		va.AddBuffer(vb, layout);
 
-		IndexBuffer ib(indices, 0);
-
+		//IndexBuffer ib(indices, 0);
 
 		VertexArray lightVAO;
 		VertexBufferLayout lightLayout;
 		lightLayout.Push<float>(3);
 		lightLayout.Push<float>(3);
+		lightLayout.Push<float>(2);
 		lightVAO.AddBuffer(vb, lightLayout);
 		lightVAO.Unbind();
 
-		ShaderProgram lithtProgram("res/shaders/Light.shader");
-		lithtProgram.Unbind();
+		
+		
 
 		//glm::mat4 projection = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
 		//glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)960 / (float)450, 0.1f, 100.0f);
@@ -242,16 +244,28 @@ int main(void)
 		program.Bind();
 		program.SetUniform4f("u_Color", 0.2f, 0.3f, 0.3f, 1.0f);
 
-		Texture texture("res/textures/log.png");
-		texture.Bind();
-		program.SetUniform1i("u_Texture", 0);
+		//Texture texture("res/textures/log.png");
+		//texture.Bind();		
+		//program.SetUniform1i("u_Texture", 0);
 
+
+
+		ShaderProgram lithtProgram("res/shaders/Light.shader");
+		Texture tex("res/textures/container2.png");
+		tex.Bind();
+		lithtProgram.Bind();
+		Texture tex1("res/textures/container2_specular.png");
+		tex1.Bind();
+		lithtProgram.SetUniform1i("material.diffuse", 0);
+		lithtProgram.SetUniform1i("material.specular", 1);
+		
 
 
 		va.Unbind();
 		vb.Unbind();
-		ib.Unbind();
+		//ib.Unbind();
 		program.Unbind();
+		lithtProgram.Unbind();
 
 		Renderer renderer;
 
@@ -317,6 +331,7 @@ int main(void)
 			program.SetUniformMat4f("u_MVP", mvp);
 
 			va.Bind();
+			glDrawArrays(GL_TRIANGLES, 0, 36);
 			//for (unsigned int i = 0; i < 10; i++)
 			//{
 			//	// calculate the model matrix for each object and pass it to shader before drawing
@@ -331,7 +346,7 @@ int main(void)
 
 			//	glDrawArrays(GL_TRIANGLES, 0, 36);
 			//}
-			glDrawArrays(GL_TRIANGLES, 0, 36);
+			
 
 
 
@@ -358,15 +373,14 @@ int main(void)
 			lithtProgram.SetUniform3f("lightPos", lightPos);
 			lithtProgram.SetUniform3f("viewPos", camera.Position);
 
-			lithtProgram.SetUniform3f("material.ambient", 1.0f, 0.5f, 0.31f);
-			lithtProgram.SetUniform3f("material.diffuse", 1.0f, 0.5f, 0.31f);
-			lithtProgram.SetUniform3f("material.specular", 0.5f, 0.5f, 0.5f);
+			//lithtProgram.SetUniform3f("material.ambient", 1.0f, 0.5f, 0.31f);
+			
 			lithtProgram.SetUniform1f("material.shininess", 32.0f);
 
-			glm::vec3 lightColor;
-			lightColor.x = sin(glfwGetTime() * 2.0f);
-			lightColor.y = sin(glfwGetTime() * 0.7f);
-			lightColor.z = sin(glfwGetTime() * 1.3f);
+			glm::vec3 lightColor(1.0f);
+			//lightColor.x = sin(glfwGetTime() * 2.0f);
+			//lightColor.y = sin(glfwGetTime() * 0.7f);
+			//lightColor.z = sin(glfwGetTime() * 1.3f);
 
 			glm::vec3 diffuseColor = lightColor   * glm::vec3(0.5f); // 降低影响
 			glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // 很低的影响
