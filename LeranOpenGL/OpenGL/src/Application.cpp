@@ -245,8 +245,8 @@ int main(void)
 		program.SetUniform4f("u_Color", 0.2f, 0.3f, 0.3f, 1.0f);
 
 		//Texture texture("res/textures/log.png");
-		//texture.Bind();		
-		//program.SetUniform1i("u_Texture", 0);
+		//texture.Bind();	
+		program.SetUniform1i("u_LightTexture", 0);
 
 
 
@@ -290,7 +290,7 @@ int main(void)
 			/* renderer here */
 			renderer.Clear();
 
-			float currentFrame = glfwGetTime();
+			float currentFrame = (float)glfwGetTime();
 			deltaTime = currentFrame - lastFrame;
 			lastFrame = currentFrame;
 
@@ -321,8 +321,8 @@ int main(void)
 			//projection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
 
 			float radius = 20.0f;
-			float camX = sin(glfwGetTime()) * radius;
-			float camZ = cos(glfwGetTime()) * radius;
+			float camX = sin((float)glfwGetTime()) * radius;
+			float camZ = cos((float)glfwGetTime()) * radius;
 			view = camera.GetViewMatrix();
 			//view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
 
@@ -375,7 +375,7 @@ int main(void)
 
 			//lithtProgram.SetUniform3f("material.ambient", 1.0f, 0.5f, 0.31f);
 			
-			lithtProgram.SetUniform1f("material.shininess", 32.0f);
+			lithtProgram.SetUniform1f("material.shininess", 64.0f);
 
 			glm::vec3 lightColor(1.0f);
 			//lightColor.x = sin(glfwGetTime() * 2.0f);
@@ -388,6 +388,9 @@ int main(void)
 			lithtProgram.SetUniform3f("light.ambient", ambientColor);
 			lithtProgram.SetUniform3f("light.diffuse", diffuseColor); // 将光照调暗了一些以搭配场景
 			lithtProgram.SetUniform3f("light.specular", 1.0f, 1.0f, 1.0f);
+
+			tex.Bind();
+			tex1.Bind();
 
 			lightVAO.Bind();
 			glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -457,16 +460,16 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
 	if (firstMouse)
 	{
-		lastX = xpos;
-		lastY = ypos;
+		lastX = (float)xpos;
+		lastY = (float)ypos;
 		firstMouse = false;
 	}
 
-	float xoffset = xpos - lastX;
-	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+	float xoffset = (float)xpos - lastX;
+	float yoffset = lastY - (float)ypos; // reversed since y-coordinates go from bottom to top
 
-	lastX = xpos;
-	lastY = ypos;
+	lastX = (float)xpos;
+	lastY = (float)ypos;
 
 	//camera.ProcessMouseMovement(xoffset, yoffset);
 }
@@ -475,5 +478,5 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 // ----------------------------------------------------------------------
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	camera.ProcessMouseScroll(yoffset);
+	camera.ProcessMouseScroll((float)yoffset);
 }
