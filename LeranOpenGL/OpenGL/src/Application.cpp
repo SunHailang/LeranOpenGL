@@ -82,29 +82,6 @@ int main(void)
 	}
 	std::cout << "[OpenGL Version]: " << glfwGetVersionString() << std::endl;
 	{
-		// 绘制三角形
-		//float positions[] = {
-		//	0.0f, 0.0f, 0.0f, 0.0f, 0.0f,	// 0 左下角
-		//	192.0f, 0.0f, 0.0f, 1.0f, 0.0f,	// 1 右下角
-		//	192.0f, 192.0f, 0.0f, 1.0f, 1.0f,	// 2 右上角
-		//	0.0f, 192.0f, 0.0f, 0.0f, 1.0f	// 3 左上角
-		//};
-
-		unsigned int indices[] = {
-			0, 1, 2,
-			2, 3, 0
-		};
-		//float positions[] = {
-		//	// positions          // texture coords
-		//	0.5f,  0.5f, 0.0f,   1.0f, 1.0f, // top right
-		//	0.5f, -0.5f, 0.0f,   1.0f, 0.0f, // bottom right
-		//	-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, // bottom left
-		//	-0.5f,  0.5f, 0.0f,   0.0f, 1.0f  // top left 
-		//};
-		//unsigned int indices[] = {
-		//	0, 1, 3, // first triangle
-		//	1, 2, 3  // second triangle
-		//};
 		float positions[] = {
 			// positions          // normals           // texture coords
 			-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
@@ -150,49 +127,6 @@ int main(void)
 			-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
 		};
 
-		//float positions[] = {
-		//	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-		//	0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-		//	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		//	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		//	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		//	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-		//	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		//	0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		//	0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-		//	0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-		//	-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-		//	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-		//	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		//	-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		//	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		//	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		//	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		//	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		//	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		//	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		//	0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		//	0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		//	0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		//	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		//	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		//	0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-		//	0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		//	0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		//	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		//	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-		//	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		//	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		//	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		//	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		//	-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-		//	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-		//};
 		// world space positions of our cubes
 		glm::vec3 cubePositions[] = {
 			glm::vec3(0.0f,  0.0f,  0.0f),
@@ -211,7 +145,7 @@ int main(void)
 		GLCall(glEnable(GL_BLEND));
 		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
-		glEnable(GL_DEPTH_TEST);
+		GLCall(glEnable(GL_DEPTH_TEST));
 
 		VertexArray va;
 		VertexBuffer vb(positions, sizeof(positions));
@@ -232,13 +166,6 @@ int main(void)
 		lightVAO.AddBuffer(vb, lightLayout);
 		lightVAO.Unbind();
 
-		
-		
-
-		//glm::mat4 projection = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
-		//glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)960 / (float)450, 0.1f, 100.0f);
-		//glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-
 
 		ShaderProgram program("res/shaders/Basic.shader");
 		program.Bind();
@@ -250,14 +177,15 @@ int main(void)
 
 
 
-		ShaderProgram lithtProgram("res/shaders/Light.shader");
+		//ShaderProgram lithtProgram("res/shaders/Light.shader");
+		ShaderProgram lithtProgram("res/shaders/Material.shader");
 		Texture tex("res/textures/container2.png");
 		tex.Bind();
 		lithtProgram.Bind();
 		Texture tex1("res/textures/container2_specular.png");
 		tex1.Bind();
-		lithtProgram.SetUniform1i("material.diffuse", 0);
-		lithtProgram.SetUniform1i("material.specular", 1);
+		//lithtProgram.SetUniform1i("material.diffuse", 0);
+		//lithtProgram.SetUniform1i("material.specular", 1);
 		
 
 
@@ -283,6 +211,7 @@ int main(void)
 		ImGui_ImplOpenGL3_Init(glsl_version);
 
 
+		float specularStr = 32.0f;
 		glm::vec3 translation(0.0f, -0.5f, -4.0f);
 
 		while (!glfwWindowShouldClose(window))
@@ -332,21 +261,6 @@ int main(void)
 
 			va.Bind();
 			glDrawArrays(GL_TRIANGLES, 0, 36);
-			//for (unsigned int i = 0; i < 10; i++)
-			//{
-			//	// calculate the model matrix for each object and pass it to shader before drawing
-			//	glm::mat4 model = glm::mat4(1.0f);
-			//	model = glm::translate(model, cubePositions[i]);
-			//	float angle = 20.0f * i;
-			//	model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-			//	//ourShader.setMat4("model", model);
-
-			//	glm::mat4 mvp = projection * view * model;
-			//	program.SetUniformMat4f("u_MVP", mvp);
-
-			//	glDrawArrays(GL_TRIANGLES, 0, 36);
-			//}
-			
 
 
 
@@ -366,16 +280,8 @@ int main(void)
 			lithtProgram.SetUniformMat4f("view", view);
 			lithtProgram.SetUniformMat4f("model", lightmodel);
 
-			glm::mat4 lightMVP = projection * view * lightmodel;
-
-			//lithtProgram.SetUniformMat4f("u_MVP", lightMVP);
-
 			lithtProgram.SetUniform3f("lightPos", lightPos);
 			lithtProgram.SetUniform3f("viewPos", camera.Position);
-
-			//lithtProgram.SetUniform3f("material.ambient", 1.0f, 0.5f, 0.31f);
-			
-			lithtProgram.SetUniform1f("material.shininess", 64.0f);
 
 			glm::vec3 lightColor(1.0f);
 			//lightColor.x = sin(glfwGetTime() * 2.0f);
@@ -385,10 +291,14 @@ int main(void)
 			glm::vec3 diffuseColor = lightColor   * glm::vec3(0.5f); // 降低影响
 			glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // 很低的影响
 
-			lithtProgram.SetUniform3f("light.ambient", ambientColor);
-			lithtProgram.SetUniform3f("light.diffuse", diffuseColor); // 将光照调暗了一些以搭配场景
-			lithtProgram.SetUniform3f("light.specular", 1.0f, 1.0f, 1.0f);
+			lithtProgram.SetUniform3f("material.ambient", 1.0f, 0.5f, 0.31f);
+			lithtProgram.SetUniform3f("material.diffuse", 1.0f, 0.5f, 0.31f); // 将光照调暗了一些以搭配场景
+			lithtProgram.SetUniform3f("material.specular", 0.5f, 0.5f, 0.5f);
 
+			//lithtProgram.SetUniform3f("light.ambient", ambientColor);
+			//lithtProgram.SetUniform3f("light.diffuse", diffuseColor); // 将光照调暗了一些以搭配场景
+			//lithtProgram.SetUniform3f("light.specular", 1.0f, 1.0f, 1.0f);
+			lithtProgram.SetUniform1f("material.shininess", specularStr);
 			tex.Bind();
 			tex1.Bind();
 
@@ -400,7 +310,8 @@ int main(void)
 			{
 				ImGui::Begin("Application");
 
-				ImGui::SliderFloat3("TranslationX", &translation.x, -5.0f, 5.0f);
+				ImGui::SliderFloat3("TranslationX", &translation.x, -10.0f, 10.0f);
+				ImGui::SliderFloat("specular", &specularStr, 8.0f, 256.0f);
 
 				ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 				ImGui::End();

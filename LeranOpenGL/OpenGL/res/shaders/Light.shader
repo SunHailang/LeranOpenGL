@@ -8,7 +8,6 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
-uniform mat4 u_MVP;
 
 out vec3 FragPos;
 out vec3 Normal;
@@ -59,7 +58,7 @@ uniform vec3 objectColor;
 void main()
 {
 	// ambient
-	vec3 ambient = light.ambient * texture(material.diffuse, TexCoords).rgb;
+	vec3 ambient = light.ambient * texture(material.ambient, TexCoords).rgb;
 
 	// diffuse 
 	vec3 norm = normalize(Normal);

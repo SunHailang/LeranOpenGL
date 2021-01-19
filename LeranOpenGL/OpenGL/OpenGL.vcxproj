@@ -125,6 +125,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\ShaderProgram.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\IndexBuffer.cpp" />
@@ -143,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\IndexBuffer.h" />
+    <ClInclude Include="include\Mesh.h" />
     <ClInclude Include="include\Renderer.h" />
     <ClInclude Include="include\ShaderProgram.h" />
     <ClInclude Include="include\Texture.h" />
@@ -162,6 +164,7 @@
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
     <None Include="res\shaders\Light.shader" />
+    <None Include="res\shaders\Material.shader" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\container2.png" />
