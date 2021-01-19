@@ -6,9 +6,9 @@
 
 #include "ShaderProgram.h"
 
-class VertexArray;
-class IndexBuffer;
-class VertexBuffer;
+#include "VertexArray.h"
+
+
 
 struct MeshVertex
 {
@@ -38,8 +38,8 @@ public:
 private:
 	/*渲染数据*/
 	VertexArray va;
-	VertexBuffer vb;
-	IndexBuffer ib;
+	//VertexBuffer vb;
+	//IndexBuffer ib;
 
 	/*函数*/
 	void SetupMesh();
