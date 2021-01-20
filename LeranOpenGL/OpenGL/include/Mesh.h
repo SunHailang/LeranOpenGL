@@ -4,11 +4,11 @@
 
 #include "glm/glm.hpp"
 
-#include "ShaderProgram.h"
-
 #include "VertexArray.h"
+#include "IndexBuffer.h"
 
-
+class ShaderProgram;
+class Renderer;
 
 struct MeshVertex
 {
@@ -33,13 +33,12 @@ public:
 
 	/*函数*/
 	Mesh(std::vector<MeshVertex> _vertices, std::vector<unsigned int> _indices, std::vector<MeshTexture> _textures);
-	void Draw(ShaderProgram shaderProgram);
+	void Draw();
 
 private:
 	/*渲染数据*/
 	VertexArray va;
-	//VertexBuffer vb;
-	//IndexBuffer ib;
+	IndexBuffer ib;
 
 	/*函数*/
 	void SetupMesh();

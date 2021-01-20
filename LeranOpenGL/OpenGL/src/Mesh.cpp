@@ -6,6 +6,7 @@
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "VertexBufferLayout.h"
+#include "Renderer.h"
 
 
 Mesh::Mesh(std::vector<MeshVertex> _vertices, std::vector<unsigned int> _indices, std::vector<MeshTexture> _textures)
@@ -14,24 +15,25 @@ Mesh::Mesh(std::vector<MeshVertex> _vertices, std::vector<unsigned int> _indices
 	SetupMesh();
 }
 
-void Mesh::Draw(ShaderProgram shaderProgram)
+void Mesh::Draw()
 {
-
-
-
+	//va.Bind();
+	//shaderProgram.Bind();
+	//renderer.Draw(va, ib, shaderProgram);
 	va.Bind();
+	ib.Bind();
 }
 
 void Mesh::SetupMesh()
 {
 	VertexBuffer vb(&vertices[0], sizeof(vertices));
-	IndexBuffer ib(&indices[0], indices.size());
+	ib.AddBuffer(&indices[0], indices.size());
 	VertexBufferLayout layout;
 	layout.Push<float>(3);
 	layout.Push<float>(3);
 	layout.Push<float>(2);
 	va.AddBuffer(vb, layout);
-	ib.Bind();
+	ib.Unbind();
 	va.Unbind();
 }
 

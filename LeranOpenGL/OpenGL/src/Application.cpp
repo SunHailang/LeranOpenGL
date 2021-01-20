@@ -22,6 +22,8 @@
 #include "Camera.h"
 #include "Time.h"
 
+#include "Mesh.h"
+
 #define SCREEN_WIDTH 960
 #define SCREEN_HEIGHT 540
 
@@ -144,7 +146,6 @@ int main(void)
 
 		GLCall(glEnable(GL_BLEND));
 		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-
 		GLCall(glEnable(GL_DEPTH_TEST));
 
 		VertexArray va;

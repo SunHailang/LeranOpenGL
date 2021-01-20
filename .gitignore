@@ -1,8 +1,13 @@
 /LeranOpenGL/*.db
 /LeranOpenGL/OpenGL/imgui.ini
 
-
+/LeranOpenGL/.vs/
 /LeranOpenGL/Debug/
+/LeranOpenGL/x64/
+
 /LeranOpenGL/OpenGL/Debug/
 /LeranOpenGL/OpenGL/x64/
-/LeranOpenGL/.vs/
+
+/LeranOpenGL/OpenGLAdvanced/Debug/
+/LeranOpenGL/OpenGLAdvanced/x64/
+
