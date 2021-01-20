@@ -22,7 +22,6 @@
 #include "Camera.h"
 #include "Time.h"
 
-#include "Mesh.h"
 
 #define SCREEN_WIDTH 960
 #define SCREEN_HEIGHT 540
