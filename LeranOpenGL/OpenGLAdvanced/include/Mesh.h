@@ -31,6 +31,10 @@ public:
 
 	void Draw(ShaderProgram *shaderProgram) const;
 
+	inline unsigned int GetVAO() const { return VAO; }
+	inline unsigned int GetVBO() const { return VBO; }
+	inline unsigned int GetEBO() const { return EBO; }
+
 private:
 	/*网格数据*/
 	std::vector<Vertex> vertices;

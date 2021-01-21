@@ -23,12 +23,18 @@ Mesh::~Mesh()
 
 void Mesh::Draw(ShaderProgram *shaderProgram) const
 {
+	unsigned int textureIndex = 0;
 	for (unsigned int i = 0; i < textures.size(); i++)
 	{
+		glActiveTexture(GL_TEXTURE0 + textureIndex); // 在绑定之前激活相应的纹理单元
 		std::string name = textures.at(i).type.c_str();
 		unsigned int id = textures.at(i).id;
-		shaderProgram->SetUniform1i(name, id);
+		shaderProgram->SetUniform1i(name, textureIndex);
+		textureIndex++;
+		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 	}
+
+
 	// 绘制网格
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);

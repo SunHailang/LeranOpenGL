@@ -20,6 +20,12 @@ Model::~Model()
 	{
 		GLCall(glDeleteTextures(1, &textures_loaded.at(i).id));
 	}
+	//for (unsigned int i = 0; i < meshs.size(); i++)
+	//{
+	//	glDeleteVertexArrays(1, &meshs.at(i).GetVAO());
+	//	glDeleteBuffers(1, &meshs.at(i).GetVBO());
+	//	glDeleteBuffers(1, &meshs.at(i).GetEBO());
+	//}
 }
 
 void Model::Draw(ShaderProgram *shaderProgram) const
@@ -126,8 +132,8 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 std::vector<Texture> Model::loadMaterialTextures(aiMaterial *material, aiTextureType type, std::string typeName)
 {
 	std::vector<Texture> textures;
-
-	for (unsigned int i = 0; i < material->GetTextureCount(type); i++)
+	unsigned int textureCount = material->GetTextureCount(type);
+	for (unsigned int i = 0; i < textureCount; i++)
 	{
 		aiString str;
 		material->GetTexture(type, i, &str);
