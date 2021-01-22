@@ -17,6 +17,7 @@
 #include "Texture2D.h"
 #include "Model.h"
 #include "Camera.h"
+#include "TextureCube.h"
 
 void glfwFramebufferSizeCallback(GLFWwindow *window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -59,6 +60,7 @@ int main()
 	}
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1);
+
 	if (glewInit() != GLEW_OK)
 	{
 		std::cout << "Failed to glew Init." << std::endl;
@@ -83,39 +85,85 @@ int main()
 		glCullFace(GL_BACK);
 		glFrontFace(GL_CCW);
 
-		std::vector<Vertex> vertexVec;
-		vertexVec.push_back({ glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f) });
-		vertexVec.push_back({ glm::vec3(-0.5f,  0.5f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f) });
-		vertexVec.push_back({ glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f) });
-		vertexVec.push_back({ glm::vec3(0.5f,  0.5f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f) });
-
-		std::vector<Texture> texVec;
-		texVec.push_back({ 0, "texture_diffuse1" });
-		std::vector<unsigned int> indiecsVec;
-		indiecsVec.push_back(0);
-		indiecsVec.push_back(1);
-		indiecsVec.push_back(2);
-		indiecsVec.push_back(1);
-		indiecsVec.push_back(2);
-		indiecsVec.push_back(3);
-
-		Mesh ourMesh(vertexVec, indiecsVec, texVec);
-
 
 		// 加载 shader
 		ShaderProgram lightShaderProgram("res/shaders/Light.shader");
-
+		
 		ShaderProgram shaderProgram("res/shaders/Basic.shader");
-		// 加载 Texture2D
-		Texture2D tex2D("res/models/nanosuit/arm_dif.png");
-		Texture2D tex2D1("res/models/nanosuit/body_dif.png");
+
 		shaderProgram.Bind();
 		//shaderProgram.SetUniform1i("ourTexture1", 0);
 		//shaderProgram.SetUniform1i("ourTexture2", 1);
 
 		Model ourModel("res/models/nanosuit/nanosuit.obj");
-		//Model ourModel("res/models/cube/cube.obj");
+		Model lightCube("res/models/cube/cube.obj");
 
+		ShaderProgram skyboxShaderProgram("res/shaders/SkyBox.shader");
+		float skyboxVertices[] = {
+			// positions          
+			-70.0f,  70.0f, -70.0f,
+			-70.0f, -70.0f, -70.0f,
+			 70.0f, -70.0f, -70.0f,
+			 70.0f, -70.0f, -70.0f,
+			 70.0f,  70.0f, -70.0f,
+			-70.0f,  70.0f, -70.0f,		//
+			-70.0f, -70.0f, 7.00f,
+			-70.0f, -70.0f, -70.0f,
+			-70.0f,  70.0f, -70.0f,
+			-70.0f,  70.0f, -70.0f,
+			-70.0f,  70.0f,  70.0f,
+			-70.0f, -70.0f,  70.0f,		
+			 
+			 70.0f, -70.0f, -70.0f,
+			 70.0f, -70.0f,  70.0f,
+			 70.0f,  70.0f,  70.0f,
+			 70.0f,  70.0f,  70.0f,
+			 70.0f,  70.0f, -70.0f,
+			 70.0f, -70.0f, -70.0f,		
+			 
+			-70.0f, -70.0f,  70.0f,
+			-70.0f,  70.0f,  70.0f,
+			 70.0f,  70.0f,  70.0f,
+			 70.0f,  70.0f,  70.0f,
+			 70.0f, -70.0f,  70.0f,
+			-70.0f, -70.0f,  70.0f,		
+			 
+			-70.0f,  70.0f, -70.0f,
+			 70.0f,  70.0f, -70.0f,
+			 70.0f,  70.0f,  70.0f,
+			 70.0f,  70.0f,  70.0f,
+			-70.0f,  70.0f,  70.0f,
+			-70.0f,  70.0f, -70.0f,		
+			 
+			-70.0f, -70.0f, -70.0f,
+			-70.0f, -70.0f,  70.0f,
+			 70.0f, -70.0f, -70.0f,
+			 70.0f, -70.0f, -70.0f,
+			-70.0f, -70.0f,  70.0f,
+			 70.0f, -70.0f,  70.0f
+		};
+		// skybox VAO
+
+		unsigned int skyboxVAO, skyboxVBO;
+		glGenVertexArrays(1, &skyboxVAO);
+		glGenBuffers(1, &skyboxVBO);
+		glBindVertexArray(skyboxVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		std::vector<std::string> faces
+		{
+			"res/textures/skybox/skybox/right.jpg",
+			"res/textures/skybox/skybox/left.jpg",
+			"res/textures/skybox/skybox/top.jpg",
+			"res/textures/skybox/skybox/bottom.jpg",
+			"res/textures/skybox/skybox/front.jpg",
+			"res/textures/skybox/skybox/back.jpg"
+		};
+		TextureCube textureCube(faces);
+		skyboxShaderProgram.Bind();
+		skyboxShaderProgram.SetUniform1i("skybox", 0);
 
 		//tex2D.Unbind();
 		shaderProgram.Unbind();
@@ -138,7 +186,9 @@ int main()
 
 		while (!glfwWindowShouldClose(window))
 		{
-			glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
+			// render
+			// ------
+			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			// Start the Dear ImGui frame
@@ -158,6 +208,19 @@ int main()
 			glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 			glm::mat4 view = camera.GetViewMatrix();
 
+			// 绘制天空盒
+			glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
+			skyboxShaderProgram.Bind();
+			view = glm::mat4(glm::mat3(camera.GetViewMatrix())); // remove translation from the view matrix
+			skyboxShaderProgram.SetUniformMat4f("view", view);
+			skyboxShaderProgram.SetUniformMat4f("projection", projection);
+			// skybox cube
+			glBindVertexArray(skyboxVAO);
+			textureCube.Bind();
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+			glBindVertexArray(0);
+			glDepthFunc(GL_LESS); // set depth function back to default
+
 			// 绘制一个光源
 			lightShaderProgram.Bind();
 			lightShaderProgram.SetUniformMat4f("projection", projection);
@@ -165,21 +228,20 @@ int main()
 			glm::mat4 lightModel = glm::mat4(1.0f);
 
 			lightModel = glm::translate(lightModel, lightPos); // translate it down so it's at the center of the scene
-			lightModel = glm::scale(lightModel, glm::vec3(0.3f));	// it's a bit too big for our scene, so scale it down
+			lightModel = glm::scale(lightModel, glm::vec3(0.1f));	// it's a bit too big for our scene, so scale it down
+			lightModel = glm::rotate(lightModel, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
 			lightShaderProgram.SetUniformMat4f("model", lightModel);
 
-			
+			lightCube.Draw(&shaderProgram);
 
-			ourMesh.Draw(&lightShaderProgram);
-
+			// 绘制3D模型
 			shaderProgram.Bind();
-
 			// view/projection transformations			
 			shaderProgram.SetUniformMat4f("projection", projection);
 			shaderProgram.SetUniformMat4f("view", view);
 			// render the loaded model
 			glm::mat4 model = glm::mat4(1.0f);
-			model = glm::translate(model, glm::vec3(0.0f, -3.0f, -5.0f)); // translate it down so it's at the center of the scene
+			model = glm::translate(model, glm::vec3(0.0f, -3.0f, -8.0f)); // translate it down so it's at the center of the scene
 			model = glm::scale(model, glm::vec3(0.3f));	// it's a bit too big for our scene, so scale it down
 			model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
 			shaderProgram.SetUniformMat4f("model", model);
@@ -192,9 +254,10 @@ int main()
 			shaderProgram.SetUniform3f("lightDiffuse", glm::vec3(1.0f, 0.5f, 0.31f));
 			shaderProgram.SetUniform3f("lightSpecular", glm::vec3(0.5f, 0.5f, 0.5f));
 			shaderProgram.SetUniform3f("viewPos", camera.Position);
-
 			ourModel.Draw(&shaderProgram);
 
+
+			
 
 			// 2. Show a simple window that we create ourselves. 
 			// We use a Begin/End pair to created a named window.
@@ -215,6 +278,9 @@ int main()
 			glfwSwapBuffers(window);
 			glfwPollEvents();
 		}
+
+		glDeleteVertexArrays(1, &skyboxVAO);
+		glDeleteBuffers(1, &skyboxVAO);
 	}
 
 	// Cleanup
