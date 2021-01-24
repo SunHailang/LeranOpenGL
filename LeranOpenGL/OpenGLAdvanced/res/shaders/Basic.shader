@@ -1,5 +1,5 @@
 ﻿#shader vertex
-#version 330
+#version 330 core
 layout(location = 0) in vec3 aPos;
 layout(location = 1) in vec3 aNormal;
 layout(location = 2) in vec2 aTexCoord;
@@ -22,7 +22,7 @@ void main()
 
 
 #shader fragment
-#version 330
+#version 330 core
 layout(location = 0) out vec4 FragColor;
 
 in vec2 TexCoord;
@@ -60,7 +60,7 @@ void main()
 	// reflect 函数要求第一个向量是从光源指向片段位置的向量,第二个参数要求是一个法向量
 	vec3 reflectDir = reflect(-lightDir, norm);
 	float specStrength = pow(max(dot(specDir, reflectDir), 0.0), 32);
-	vec3 spec = (lightPos * (specStrength * lightSpecular)) * texture(texture_specular, TexCoord).rgb;
+	vec3 spec = (lightColor * (specStrength * lightSpecular)) * texture(texture_specular, TexCoord).rgb;
 
 	vec4 texColor = texture(texture_normal, TexCoord) + texture(texture_height, TexCoord);
 
