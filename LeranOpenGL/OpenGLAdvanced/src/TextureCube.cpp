@@ -12,7 +12,7 @@ TextureCube::TextureCube(const std::vector<std::string> faces)
 {
 	glGenTextures(1, &m_RendererID);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
-
+	stbi_set_flip_vertically_on_load(0);
 	int width, height, nrChannels;
 	for (unsigned int i = 0; i < faces.size(); i++)
 	{

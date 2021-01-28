@@ -155,10 +155,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
+    <None Include="res\shaders\Grass.shader" />
     <None Include="res\shaders\Light.shader" />
+    <None Include="res\shaders\LightMultiple.shader" />
+    <None Include="res\shaders\LightParallel.shader" />
+    <None Include="res\shaders\LightPoint.shader" />
+    <None Include="res\shaders\LightSpot.shader" />
     <None Include="res\shaders\SkyBox.shader" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\textures\grass.png" />
     <Image Include="res\textures\skybox\skybox\back.jpg" />
     <Image Include="res\textures\skybox\skybox\bottom.jpg" />
     <Image Include="res\textures\skybox\skybox\front.jpg" />

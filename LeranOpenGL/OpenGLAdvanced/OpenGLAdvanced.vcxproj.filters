@@ -112,6 +112,11 @@
     <None Include="res\shaders\Basic.shader" />
     <None Include="res\shaders\Light.shader" />
     <None Include="res\shaders\SkyBox.shader" />
+    <None Include="res\shaders\Grass.shader" />
+    <None Include="res\shaders\LightParallel.shader" />
+    <None Include="res\shaders\LightPoint.shader" />
+    <None Include="res\shaders\LightSpot.shader" />
+    <None Include="res\shaders\LightMultiple.shader" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\wall.jpg">
@@ -133,6 +138,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\textures\skybox\skybox\top.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\grass.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

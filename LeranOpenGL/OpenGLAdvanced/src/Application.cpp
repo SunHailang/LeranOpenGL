@@ -88,7 +88,7 @@ int main()
 
 		// 加载 shader
 		ShaderProgram lightShaderProgram("res/shaders/Light.shader");
-		
+
 		ShaderProgram shaderProgram("res/shaders/Basic.shader");
 
 		shaderProgram.Bind();
@@ -98,6 +98,46 @@ int main()
 		Model ourModel("res/models/nanosuit/nanosuit.obj");
 		Model lightCube("res/models/cube/cube.obj");
 
+
+		float transparentVertices[] = {
+			// positions         // texture Coords (swapped y coordinates because texture is flipped upside down)
+			0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
+			0.0f, -0.5f,  0.0f,  0.0f,  1.0f,
+			1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
+
+			0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
+			1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
+			1.0f,  0.5f,  0.0f,  1.0f,  0.0f
+		};
+		// transparent VAO
+		unsigned int transparentVAO, transparentVBO;
+		glGenVertexArrays(1, &transparentVAO);
+		glGenBuffers(1, &transparentVBO);
+		glBindVertexArray(transparentVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, transparentVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(transparentVertices), transparentVertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+		glBindVertexArray(0);
+
+		std::vector<glm::vec3> vegetation
+		{
+			glm::vec3(-1.5f, 0.0f, -0.48f),
+			glm::vec3(1.5f, 0.0f, 0.51f),
+			glm::vec3(0.0f, 0.0f, 0.7f),
+			glm::vec3(-0.3f, 0.0f, -2.3f),
+			glm::vec3(0.5f, 0.0f, -0.6f)
+		};
+
+		ShaderProgram grassShaderProgram("res/shaders/Grass.shader");
+		grassShaderProgram.Bind();
+		Texture2D grass("res/textures/grass.png");
+		grassShaderProgram.SetUniform1i("ourTexture", 0);
+
+
+#pragma region SkyBox 加载
 		ShaderProgram skyboxShaderProgram("res/shaders/SkyBox.shader");
 		float skyboxVertices[] = {
 			// positions          
@@ -112,29 +152,29 @@ int main()
 			-70.0f,  70.0f, -70.0f,
 			-70.0f,  70.0f, -70.0f,
 			-70.0f,  70.0f,  70.0f,
-			-70.0f, -70.0f,  70.0f,		
-			 
+			-70.0f, -70.0f,  70.0f,
+
 			 70.0f, -70.0f, -70.0f,
 			 70.0f, -70.0f,  70.0f,
 			 70.0f,  70.0f,  70.0f,
 			 70.0f,  70.0f,  70.0f,
 			 70.0f,  70.0f, -70.0f,
-			 70.0f, -70.0f, -70.0f,		
-			 
+			 70.0f, -70.0f, -70.0f,
+
 			-70.0f, -70.0f,  70.0f,
 			-70.0f,  70.0f,  70.0f,
 			 70.0f,  70.0f,  70.0f,
 			 70.0f,  70.0f,  70.0f,
 			 70.0f, -70.0f,  70.0f,
-			-70.0f, -70.0f,  70.0f,		
-			 
+			-70.0f, -70.0f,  70.0f,
+
 			-70.0f,  70.0f, -70.0f,
 			 70.0f,  70.0f, -70.0f,
 			 70.0f,  70.0f,  70.0f,
 			 70.0f,  70.0f,  70.0f,
 			-70.0f,  70.0f,  70.0f,
-			-70.0f,  70.0f, -70.0f,		
-			 
+			-70.0f,  70.0f, -70.0f,
+
 			-70.0f, -70.0f, -70.0f,
 			-70.0f, -70.0f,  70.0f,
 			 70.0f, -70.0f, -70.0f,
@@ -152,6 +192,7 @@ int main()
 		glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		glBindVertexArray(0);
 		std::vector<std::string> faces
 		{
 			"res/textures/skybox/skybox/right.jpg",
@@ -164,7 +205,7 @@ int main()
 		TextureCube textureCube(faces);
 		skyboxShaderProgram.Bind();
 		skyboxShaderProgram.SetUniform1i("skybox", 0);
-
+#pragma endregion
 		//tex2D.Unbind();
 		shaderProgram.Unbind();
 
@@ -211,7 +252,7 @@ int main()
 			// 绘制天空盒
 			glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
 			skyboxShaderProgram.Bind();
-			view = glm::mat4(glm::mat3(camera.GetViewMatrix())); // remove translation from the view matrix
+			//view = glm::mat4(glm::mat3(camera.GetViewMatrix())); // remove translation from the view matrix
 			skyboxShaderProgram.SetUniformMat4f("view", view);
 			skyboxShaderProgram.SetUniformMat4f("projection", projection);
 			// skybox cube
@@ -256,8 +297,22 @@ int main()
 			shaderProgram.SetUniform3f("viewPos", camera.Position);
 			ourModel.Draw(&shaderProgram);
 
+			// grass 
+			grassShaderProgram.Bind();
+			grassShaderProgram.SetUniformMat4f("projection", projection);
+			grassShaderProgram.SetUniformMat4f("view", view);
+			glBindVertexArray(transparentVAO);
+			grass.Bind();
+			for (unsigned int i = 0; i < vegetation.size(); i++)
+			{
+				glm::mat4 grassModel(1.0);
+				grassModel = glm::translate(grassModel, vegetation[i]);
+				grassShaderProgram.SetUniformMat4f("model", grassModel);
 
-			
+				glDrawArrays(GL_TRIANGLES, 0, 6);
+			}
+			glBindVertexArray(0);
+
 
 			// 2. Show a simple window that we create ourselves. 
 			// We use a Begin/End pair to created a named window.
@@ -280,7 +335,9 @@ int main()
 		}
 
 		glDeleteVertexArrays(1, &skyboxVAO);
-		glDeleteBuffers(1, &skyboxVAO);
+		glDeleteBuffers(1, &skyboxVBO);
+		glDeleteVertexArrays(1, &transparentVAO);
+		glDeleteBuffers(1, &transparentVBO);
 	}
 
 	// Cleanup
@@ -330,7 +387,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	lastX = xpos;
 	lastY = ypos;
 
-	//camera.ProcessMouseMovement(xoffset, yoffset);
+	camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
 // glfw: whenever the mouse scroll wheel scrolls, this callback is called
