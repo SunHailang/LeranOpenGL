@@ -7,6 +7,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL", "OpenGL\OpenGL.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGLAdvanced", "OpenGLAdvanced\OpenGLAdvanced.vcxproj", "{EDE4E261-BC4B-4AD4-9BDD-3B0AF6E8DB32}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGLGameEngine", "OpenGLGameEngine\OpenGLGameEngine.vcxproj", "{D923B7CE-6DFA-445A-A208-B9DD48E55D44}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Sandbox\Sandbox.vcxproj", "{DC288E15-575B-4A12-B9D3-AC5BC51EA45C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +35,22 @@ Global
 		{EDE4E261-BC4B-4AD4-9BDD-3B0AF6E8DB32}.Release|x64.Build.0 = Release|x64
 		{EDE4E261-BC4B-4AD4-9BDD-3B0AF6E8DB32}.Release|x86.ActiveCfg = Release|Win32
 		{EDE4E261-BC4B-4AD4-9BDD-3B0AF6E8DB32}.Release|x86.Build.0 = Release|Win32
+		{D923B7CE-6DFA-445A-A208-B9DD48E55D44}.Debug|x64.ActiveCfg = Debug|x64
+		{D923B7CE-6DFA-445A-A208-B9DD48E55D44}.Debug|x64.Build.0 = Debug|x64
+		{D923B7CE-6DFA-445A-A208-B9DD48E55D44}.Debug|x86.ActiveCfg = Debug|Win32
+		{D923B7CE-6DFA-445A-A208-B9DD48E55D44}.Debug|x86.Build.0 = Debug|Win32
+		{D923B7CE-6DFA-445A-A208-B9DD48E55D44}.Release|x64.ActiveCfg = Release|x64
+		{D923B7CE-6DFA-445A-A208-B9DD48E55D44}.Release|x64.Build.0 = Release|x64
+		{D923B7CE-6DFA-445A-A208-B9DD48E55D44}.Release|x86.ActiveCfg = Release|Win32
+		{D923B7CE-6DFA-445A-A208-B9DD48E55D44}.Release|x86.Build.0 = Release|Win32
+		{DC288E15-575B-4A12-B9D3-AC5BC51EA45C}.Debug|x64.ActiveCfg = Debug|x64
+		{DC288E15-575B-4A12-B9D3-AC5BC51EA45C}.Debug|x64.Build.0 = Debug|x64
+		{DC288E15-575B-4A12-B9D3-AC5BC51EA45C}.Debug|x86.ActiveCfg = Debug|Win32
+		{DC288E15-575B-4A12-B9D3-AC5BC51EA45C}.Debug|x86.Build.0 = Debug|Win32
+		{DC288E15-575B-4A12-B9D3-AC5BC51EA45C}.Release|x64.ActiveCfg = Release|x64
+		{DC288E15-575B-4A12-B9D3-AC5BC51EA45C}.Release|x64.Build.0 = Release|x64
+		{DC288E15-575B-4A12-B9D3-AC5BC51EA45C}.Release|x86.ActiveCfg = Release|Win32
+		{DC288E15-575B-4A12-B9D3-AC5BC51EA45C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
